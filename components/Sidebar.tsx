@@ -1,40 +1,56 @@
-import React from 'react';
-import { useState } from 'react';
-import { ScrollArea } from "@/components/ui/scroll-area";
-import  {Input} from "@/components/ui/input";
+"use client";
+import React from "react";
+import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
-  SelectTrigger,
-  SelectValue,
   SelectContent,
   SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
-function Sidebar({assignees,onFilter}:{assignees:string[];
-    onFilter:(filters: {status:string;assignee:string})=>void;
+import { Button } from "@/components/ui/button";
 
-}) {
-    const [selectedStatus,setSelectedStatus]=useState("");
-    const [searchText,setSearchText]=useState("");
-    const [selectedAssignee,setSelectedAssignee]=useState("");
-
-     const filteredSuggestions = assignees.filter((a) =>
-    a.toLowerCase().includes(searchText.toLowerCase())
-  );
-
-  const handleFilter = (status: string, assignee: string) => {
-    setSelectedStatus(status);
-    setSelectedAssignee(assignee);
+type props = {
+  onFilter: (filters: { status: string; assignee: string }) => void;
+};
+function Sidebar({ onFilter }: props) {
+  const [status, setStatus] = useState("");
+  const [assignee, setAssignee] = useState("");
+  const handleApplyFilter = () => {
     onFilter({ status, assignee });
   };
   return (
-    <aside className="w-64 p-4 border-r bg-gray-100">
-        <h2 className="text-lg font-bold mb-4">Filters</h2>
-        <div className="mb-6">
-            <h3 className="text-sm font-semibold mb-2">Status</h3>
-            
-        </div>
+    <aside className="w-full sm:w-64 border-r bg-gray-50 p-4 space-y-4">
+      <h2 className="text-xl font-semibold mb-2">Filter</h2>
+      <div className="space-y-1">
+        <Label>Status</Label>
+        <Select onValueChange={(value) => setStatus(value)}>
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="select status" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="To Do">To Do</SelectItem>
+            <SelectItem value="In Progress">In Progress</SelectItem>
+            <SelectItem value="Done">Done</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="space-y-1">
+        <Label>Assignee</Label>
+        <Input
+          type="text"
+          placeholder="eneter assignee name"
+          value={assignee}
+          onChange={(e) => setAssignee(e.target.value)}
+        />
+      </div>
+      <Button onClick={handleApplyFilter} className="w-full mt-2">
+        Apply Filter
+      </Button>
     </aside>
-  )
+  );
 }
 
-export default Sidebar
+export default Sidebar;
