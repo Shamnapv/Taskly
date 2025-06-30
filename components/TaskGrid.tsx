@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import TaskModal from "./TaskModal";
 type Task = {
+  id?:string;
   title: string;
   description: string;
   status: string;
@@ -11,9 +12,10 @@ type Task = {
 type Props = {
   tasks: Task[];
   onUpdate: (task: Task) => void;
-  onDelete: (taskToDelete: Task) => void; 
+  onDelete: (taskToDelete: Task) => void;
+  onAddComment: (taskId: string, content: string) => void; 
 };
-function TaskGrid({ tasks, onUpdate, onDelete }: Props) {
+function TaskGrid({ tasks, onUpdate, onDelete ,onAddComment}: Props) {
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   if (tasks.length == 0) {
     return (
@@ -22,9 +24,9 @@ function TaskGrid({ tasks, onUpdate, onDelete }: Props) {
   }
   return (
     <>
-      <div>
-        {tasks.map((task,index) => (
-          <Card key={index} className="hover:shadow-md transition" onClick={() => setSelectedTask(task)}>
+      <div className="flex flex-wrap gap-4 justify-items-start">
+        {tasks.map((task) => (
+          <Card key={task.id} className="bg-white border border-gray-200 hover:border-orange-500 hover:shadow-orange-md transition w-64 cursor-pointer" onClick={() => setSelectedTask(task)}>
             <CardHeader className="pb-2">
               <CardTitle className="text-lg">{task.title}</CardTitle>
             </CardHeader>
@@ -46,6 +48,8 @@ function TaskGrid({ tasks, onUpdate, onDelete }: Props) {
         {selectedTask && (
           <TaskModal
             task={selectedTask}
+            isOpen={!!selectedTask}
+            onClose={() => setSelectedTask(null)}
             onUpdate={(updatedTask) => {
               onUpdate(updatedTask);
               setSelectedTask(null);
@@ -54,6 +58,7 @@ function TaskGrid({ tasks, onUpdate, onDelete }: Props) {
               onDelete(taskToDelete); 
               setSelectedTask(null);
             }}
+            onAddComment={onAddComment}
           />
         )}
     </>

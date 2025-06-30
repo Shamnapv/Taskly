@@ -2,6 +2,7 @@ import React from "react";
 import { Input } from "@/components/ui/input";
 import Createtask from "./Createtask";
 type Task = {
+  id?:string;
   title: string;
   description: string;
   status: string;
@@ -14,7 +15,7 @@ type HeaderProps={
 }
 function Header({ onCreate,onSearch }:HeaderProps ) {
   return (
-    <header className="w-full border-b bg-blue-100 shadow-sm sticky top-0 z-50">
+    <header className="w-full border-b bg-orange-500 shadow-sm sticky top-0 z-50 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <img src="/taskly.png" alt="Logo" className="h-50 w-50" />
@@ -24,7 +25,7 @@ function Header({ onCreate,onSearch }:HeaderProps ) {
             type="text"
             placeholder="search.."
             onChange={(e) => onSearch(e.target.value)}
-            className="w-full border-b-black"
+            className="px-4 py-2 w-80 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white text-black shadow"
           />
         </div>
         <div>
