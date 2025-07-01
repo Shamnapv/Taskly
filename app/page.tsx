@@ -159,11 +159,10 @@ const handleDeleteTask = async (taskToDelete: Task) => {
   };
 
   const filteredTasks = tasks.filter((task) => {
-    const matchesSearch =
+    return (
       !searchQuery ||
-      task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      task.description.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesSearch;
+      task.title?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
   });
 
   return (
@@ -173,7 +172,7 @@ const handleDeleteTask = async (taskToDelete: Task) => {
         <Sidebar onFilter={handleFilter} />
         <main className="flex-1 p-4">
           <TaskGrid
-            tasks={tasks}
+            tasks={filteredTasks}
             onUpdate={handleUpdateTask}
             onDelete={handleDeleteTask}
             onAddComment={handleAddComment}

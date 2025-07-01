@@ -1,15 +1,8 @@
 import React, { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import {Task} from"@/app/page";
 import TaskModal from "./TaskModal";
-type Task = {
-  id?:string;
-  title: string;
-  description: string;
-  status: string;
-  //assignee: string;
-  assigneeName: string;
-  comments: string[];
-};
+
 type Props = {
   tasks: Task[];
   onUpdate: (task: Task) => void;
