@@ -28,11 +28,12 @@ type Task = {
   id?:string;
   title: string;
   description: string;
-  assignee: string;
+  //assignee: string;
+  assigneeName: string;
   status: string;
   comments: [],
 };
-const BACKEND_URL="http://192.168.43.207:9090";
+const BACKEND_URL="http://192.168.112.146:9090";
 function Createtask({ onCreate }: { onCreate: (task: Task) => void }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -115,7 +116,7 @@ function Createtask({ onCreate }: { onCreate: (task: Task) => void }) {
     onCreate({
       title,
       description,
-      assignee:assigneeName,
+      /*assignee:*/assigneeName,
       status,
       comments: [],
     });
@@ -166,9 +167,9 @@ function Createtask({ onCreate }: { onCreate: (task: Task) => void }) {
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectItem value="To Do">To Do</SelectItem>
-                  <SelectItem value="In Progress">In Progress</SelectItem>
-                  <SelectItem value="Done">Done</SelectItem>
+                  <SelectItem value="TO DO">To Do</SelectItem>
+                  <SelectItem value="IN PROGRESS">In Progress</SelectItem>
+                  <SelectItem value="DONE">Done</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>

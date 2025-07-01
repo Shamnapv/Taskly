@@ -24,7 +24,8 @@ type Task = {
   title: string;
   description: string;
   status: string;
-  assignee: string;
+  //assignee: string;
+  assigneeName: string;
   comments: string[];
 };
 type Props = {
@@ -35,9 +36,9 @@ type Props = {
   onDelete: (taskToDelete: Task) => void;
   onAddComment: (taskId: string, content: string) => void; 
 };
-const BACKEND_URL = "http://192.168.43.207:9090";
+const BACKEND_URL = "http://192.168.112.146:9090";
 function TaskModal({task,isOpen,onClose,onUpdate,onDelete,onAddComment}:Props) {
-    const [editedTask, setEditedTask] = useState({...task,comments: task.comments ?? [], });
+    const [editedTask, setEditedTask] = useState({...task, assigneeName: task.assigneeName || "",comments: task.comments ?? [], });
     const [newComment,setNewComment]=useState("");
     const [users, setUsers] = useState<User[]>([]);
     useEffect(() => {
@@ -79,19 +80,19 @@ function TaskModal({task,isOpen,onClose,onUpdate,onDelete,onAddComment}:Props) {
                             <SelectValue placeholder="Select status" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="To Do">To Do</SelectItem>
-                            <SelectItem value="In Progress">In Progress</SelectItem>
-                            <SelectItem value="Done">Done</SelectItem>
+                            <SelectItem value="TO DO">To Do</SelectItem>
+                            <SelectItem value="IN PROGRESS">In Progress</SelectItem>
+                            <SelectItem value="DONE">Done</SelectItem>
                         </SelectContent>
                     </Select>
                     <Label>Assignee</Label>
-                    <Select value={editedTask.assignee} onValueChange={(value) => setEditedTask({ ...editedTask, assignee: value })}>
+                    <Select value={editedTask.assigneeName} onValueChange={(value) => setEditedTask({ ...editedTask, assigneeName: value })}>
                         <SelectTrigger className="w-full">
                             <SelectValue placeholder="Select assignee" />
                         </SelectTrigger>
                         <SelectContent>
                             {users.map((user) => (
-                                <SelectItem key={user.id} value={user.id.toString()}>{user.name}</SelectItem>
+                                <SelectItem key={user.id} value={user.name}>{user.name}</SelectItem>
                             ))}
                         </SelectContent>
                     </Select>

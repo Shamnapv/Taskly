@@ -6,7 +6,8 @@ type Task = {
   title: string;
   description: string;
   status: string;
-  assignee: string;
+  //assignee: string;
+  assigneeName: string;
   comments: string[];
 };
 type Props = {
@@ -39,7 +40,7 @@ function TaskGrid({ tasks, onUpdate, onDelete ,onAddComment}: Props) {
               </p>
               <p>
                 <span className="font-medium text-foreground">Assignee:</span>{" "}
-                {task.assignee}
+                {task.assigneeName}
               </p>
             </CardContent>
           </Card>

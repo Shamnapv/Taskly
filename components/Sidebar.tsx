@@ -13,15 +13,15 @@ import {
 import { Button } from "@/components/ui/button";
 
 type props = {
-  onFilter: (filters: { status: string; assignee: string ;fromCreated:string;toUpdated:string;}) => void;
+  onFilter: (filters: { status: string; assigneeName: string ;fromCreated:string;toUpdated:string;}) => void;
 };
 function Sidebar({ onFilter }: props) {
   const [status, setStatus] = useState("");
-  const [assignee, setAssignee] = useState("");
+  const [assigneeName, setAssigneeName] = useState("");
   const [fromCreated,setFromCreated]=useState("");
   const [toUpdated,setToUpdated]=useState("");
   const handleApplyFilter = () => {
-    onFilter({ status, assignee,fromCreated,toUpdated });
+    onFilter({ status, assigneeName,fromCreated,toUpdated });
   };
   return (
     <aside className="w-full sm:w-64 border-r bg-white p-4 space-y-6 shadow-md">
@@ -33,9 +33,9 @@ function Sidebar({ onFilter }: props) {
             <SelectValue placeholder="select status" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="To Do">To Do</SelectItem>
-            <SelectItem value="In Progress">In Progress</SelectItem>
-            <SelectItem value="Done">Done</SelectItem>
+            <SelectItem value="TO DO">To Do</SelectItem>
+            <SelectItem value="IN PROGRESS">In Progress</SelectItem>
+            <SelectItem value="DONE">Done</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -44,8 +44,8 @@ function Sidebar({ onFilter }: props) {
         <Input
           type="text"
           placeholder="eneter assignee name"
-          value={assignee}
-          onChange={(e) => setAssignee(e.target.value)}
+          value={assigneeName}
+          onChange={(e) => setAssigneeName(e.target.value)}
           className="border-gray-300 focus:ring-orange-500"
         />
       </div>

@@ -6,7 +6,8 @@ type Task = {
   title: string;
   description: string;
   status: string;
-  assignee: string;
+  //assignee: string;
+  assigneeName: string;
   comments: [],
 };
 type HeaderProps={
