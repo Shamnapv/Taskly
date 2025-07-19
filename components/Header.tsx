@@ -6,7 +6,6 @@ type Task = {
   title: string;
   description: string;
   status: string;
-  //assignee: string;
   assigneeName: string;
   comments: [],
 };

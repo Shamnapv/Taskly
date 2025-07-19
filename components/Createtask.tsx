@@ -28,7 +28,6 @@ type Task = {
   id?:string;
   title: string;
   description: string;
-  //assignee: string;
   assigneeName: string;
   status: string;
   comments: [],
@@ -39,8 +38,6 @@ function Createtask({ onCreate }: { onCreate: (task: Task) => void }) {
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("");
   const [open, setOpen] = useState(false);
-  //const [assignee, setAssignee] = useState("");
-  //const [assigneeId, setAssigneeId] = useState("");
   const [assigneeName, setAssigneeName] = useState("");
 
   const [users, setUsers] = useState<{ id: number; name: string }[]>([]);
@@ -51,44 +48,6 @@ function Createtask({ onCreate }: { onCreate: (task: Task) => void }) {
     .catch(console.error);
 }, []);
 
-  /*const handleSubmit = async() => {
-    if (!title || !status || !assignee) return;
-    const newTask: Task = {
-      title,
-      description,
-      assignee,
-      status,
-      comments: [],
-    };
-
-    try {
-      const res = await fetch(`${BACKEND_URL}/tasks/insert`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          //id: newTask.id,
-          title: newTask.title,
-          description: newTask.description,
-          assignee: parseInt(newTask.assignee), 
-          status: newTask.status,
-        }),
-      });
-
-      if (!res.ok) throw new Error("Failed to create task");
-
-      onCreate(newTask); 
-      setTitle("");
-      setDescription("");
-      setStatus("");
-      setAssignee("");
-      setOpen(false);
-    } catch (err) {
-      console.error("Error creating task:", err);
-      alert("Failed to create task. Try again.");
-    }
-  };*/
 
   const handleSubmit = async () => {
   if (!title || !status || !assigneeName) return;

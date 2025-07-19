@@ -47,6 +47,27 @@ function TaskModal({task,isOpen,onClose,onUpdate,onDelete,onAddComment}:Props) {
       .then(setUsers)
       .catch(console.error);
     }, []);
+    useEffect(() => {
+  if (!task?.id) return;
+
+  const fetchComments = async () => {
+    try {
+      const res = await fetch(`${BACKEND_URL}/comments/task/${task.id}`);
+      if (!res.ok) throw new Error("Failed to fetch comments");
+      const data = await res.json(); // Assuming backend returns a list of comments (strings or objects)
+
+      setEditedTask(prev => ({
+        ...prev,
+        comments: data.map((comment: any) => comment.content || comment), // Adjust if API returns objects
+      }));
+    } catch (err) {
+      console.error("Error fetching comments:", err);
+    }
+  };
+
+  fetchComments();
+}, [task?.id]);
+
     const handleSave = () => {
         onUpdate(editedTask);
         onClose();
@@ -65,7 +86,7 @@ function TaskModal({task,isOpen,onClose,onUpdate,onDelete,onAddComment}:Props) {
     };
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
-            <DialogContent className='max-w-lg'>
+            <DialogContent className='max-w-lg max-h-[90vh] overflow-y-auto flex flex-col'>
                 <DialogHeader>
                     <DialogTitle>Edit Task</DialogTitle>
                 </DialogHeader>

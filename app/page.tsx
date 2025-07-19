@@ -8,7 +8,6 @@ export type Task = {
   id?: string;
   title: string;
   description: string;
-  //assignee: string;
   assigneeName: string;
   status: string;
   comments?: string[];
@@ -64,17 +63,7 @@ export default function Home() {
       .catch(console.error);
   };
 
-  // const handleUpdateTask = (updatedTask: Task) => {
-  //   fetch(`${BACKEND_URL}/tasks/update/${updatedTask.id}`, {
-  //     method: "PUT",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({ ...updatedTask, assignee: parseInt(updatedTask.assignee) }),
-  //   })
-  //     .then(() => fetchTasks())
-  //     .catch(console.error);
-  // };
-  
-
+ 
   const handleUpdateTask = async (updatedTask: Task) => {
     console.log("Sending update payload:", {
     title: updatedTask.title,
@@ -120,15 +109,6 @@ export default function Home() {
       .catch(console.error);
   };
 
-
-
-  // const handleDeleteTask = (taskToDelete: Task) => {
-  //   fetch(`${BACKEND_URL}/tasks/${taskToDelete.id}`, {
-  //     method: "DELETE",
-  //   })
-  //     .then(() => fetchTasks())
-  //     .catch(console.error);
-  // };
   
 
 const handleDeleteTask = async (taskToDelete: Task) => {
